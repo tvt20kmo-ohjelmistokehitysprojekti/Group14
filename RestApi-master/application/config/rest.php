@@ -111,6 +111,7 @@ $config['rest_realm'] = 'REST API';
 |
 */
 $config['rest_auth'] = 'basic';
+$config['rest_valid_logins'] = ['admin' => '1234'];
 //$config['rest_auth'] = FALSE;
 
 /*
