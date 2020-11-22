@@ -30,7 +30,7 @@ class Book extends REST_Controller {
         $this->load->model('kayttaja_model');
     }
 
-    public function kayttaja_get()
+    public function index_get()
     {
         
 
@@ -82,22 +82,22 @@ class Book extends REST_Controller {
 
     }
 
-    public function kayttaja_post()
+    public function index_post()
     {
         // Add a new book
         $add_data=array(
-          'name'=>$this->post('name'),
-          'author'=>$this->post('author'),
-          'isbn'=>$this->post('isbn')
+          'etunimi'=>$this->post('etunimi'),
+          'sukunimi'=>$this->post('sukunimi'),
+          'puhnro'=>$this->post('puhnro')
         );
-        $insert_id=$this->Book_model->add_book($add_data);
+        $insert_id=$this->kayttaja_model->add_kayttaja($add_data);
         if($insert_id)
         {
             $message = [
-                'id_book' => $insert_id,
-                'name' => $this->post('name'),
-                'author' => $this->post('author'),
-                'isbn'=>$this->post('isbn'),
+                'idkayttaja' => $insert_id,
+                'etunimi' => $this->post('etunimi'),
+                'sukunimi' => $this->post('sukunimi'),
+                'puhnro'=>$this->post('puhnro'),
                 'message' => 'Added a resource'
             ];
             $this->set_response($message, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
@@ -112,24 +112,24 @@ class Book extends REST_Controller {
         }
 
     }
-    public function kayttaja_put()
+    public function index_put()
     {
         // Update the book
         $id=$this->get('id');
         $update_data=array(
-          'name'=>$this->put('name'),
-          'author'=>$this->put('author'),
-          'isbn'=>$this->put('isbn')
+          'etunimi'=>$this->put('etunimi'),
+          'sukunimi'=>$this->put('sukunimi'),
+          'puhnro'=>$this->put('puhnro')
         );
-        $result=$this->Book_model->update_book($id, $update_data);
+        $result=$this->kayttaja_model->update_kayttaja($id, $update_data);
 
         if($result)
         {
             $message = [
-                'id_book' => $id,
-                'name' => $this->put('name'),
-                'author'=>$this->put('author'),
-                'isbn'=>$this->put('isbn'),
+                'idkayttaja' => $id,
+                'etunimi' => $this->put('etunimi'),
+                'sukunimi'=>$this->put('sukunimi'),
+                'puhnro'=>$this->put('puhnro'),
                 'message' => 'Updates a resource'
             ];
 
@@ -145,7 +145,7 @@ class Book extends REST_Controller {
         }
     }
 
-    public function kayttaja_delete()
+    public function index_delete()
     {
         $id = $this->get('id');
 
@@ -155,11 +155,11 @@ class Book extends REST_Controller {
             // Set the response and exit
             $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
         }
-        $result=$this->Book_model->delete_book($id);
+        $result=$this->kayttaja_model->delete_kayttaja($id);
         if ($result)
         {
           $message = [
-              'id_book' => $id,
+              'idkayttaja' => $id,
               'message' => 'Deleted the resource'
           ];
           $this->set_response($message, REST_Controller::HTTP_OK);
