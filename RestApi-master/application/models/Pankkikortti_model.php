@@ -2,7 +2,7 @@
 /**
  *
  */
-class pankkikortti_model extends CI_model
+class Pankkikortti_model extends CI_model
 {
   function get_pankkikortti($id){
     $this->db->select('*');
