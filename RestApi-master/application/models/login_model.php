@@ -1,6 +1,6 @@
 <?php
 
-class login_model extends CI_model
+class Login_model extends CI_model
 {
   function check_login($kortti){
     $this->db->select('pin');

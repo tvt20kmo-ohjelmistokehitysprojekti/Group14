@@ -2,7 +2,7 @@
 /**
  *
  */
-class kayttaja_model extends CI_model
+class Kayttaja_model extends CI_model
 {
   function get_kayttaja($id){
     $this->db->select('*');

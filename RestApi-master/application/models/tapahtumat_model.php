@@ -2,7 +2,7 @@
 /**
  *
  */
-class tapahtumat_model extends CI_model
+class Tapahtumat_model extends CI_model
 {
   function get_tapahtumat($id){
     $this->db->select('*');
