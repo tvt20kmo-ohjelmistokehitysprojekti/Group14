@@ -39,19 +39,19 @@ class Tapahtumat extends REST_Controller {
         // If the id parameter doesn't exist return all users
         if ($id === NULL)
         {
-            $pankkikortti=$this->pankkikortti_model->get_pankkikortti(NULL);
+            $tapahtumat=$this->tapahtumat_model->get_tapahtumat(NULL);
             // Check if the user data store contains user (in case the database result returns NULL)
-            if ($pankkikortti)
+            if ($tapahtumat)
             {
                 // Set the response and exit
-                $this->response($pankkikortti, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+                $this->response($tapahtumat, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {
                 // Set the response and exit
                 $this->response([
                     'status' => FALSE,
-                    'message' => 'No pankkikortti were found'
+                    'message' => 'No tapahtumat were found'
                 ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
             }
         }
@@ -66,10 +66,10 @@ class Tapahtumat extends REST_Controller {
             }
 
             // Get the user from the database, using the id as key for retrieval.
-            $user=$this->pankkikortti_model->get_pankkikortti($id);
-            if (!empty($pankkikortti))
+            $user=$this->tapahtumat_model->get_tapahtumat($id);
+            if (!empty($tapahtumat))
             {
-                $this->set_response($pankkikortti, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+                $this->set_response($tapahtumat, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {
@@ -86,16 +86,18 @@ class Tapahtumat extends REST_Controller {
     {
         // Add a new book
         $add_data=array(
-          'numero'=>$this->post('numero'),
-          'pin'=>$this->post('pin'),
+          'pvm'=>$this->post('pvm'),
+		'paikka'=>$this->post('paikka'),
+          'summa'=>$this->post('summa'),
         );
-        $insert_id=$this->pankkikortti_model->add_pankkikortti($add_data);
+        $insert_id=$this->tapahtumat_model->add_tapahtumat($add_data);
         if($insert_id)
         {
             $message = [
-                'idkortti' => $insert_id,
-                'numero' => $this->post('numero'),
-                'pin' => $this->post('pin'),
+                'idtapahtumat' => $insert_id,
+                'pvm' => $this->post('pvm'),
+                'paikka' => $this->post('paikka'),
+				'summa' => $this->post('summa'),
                 'message' => 'Added a resource'
             ];
             $this->set_response($message, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
@@ -115,17 +117,19 @@ class Tapahtumat extends REST_Controller {
         // Update the book
         $id=$this->get('id');
         $update_data=array(
-          'numero'=>$this->put('numero'),
-          'pin'=>$this->put('pin'),
+				'pvm' => $this->get('pvm'),
+                'paikka' => $this->get('paikka'),
+				'summa' => $this->get('summa')
         );
-        $result=$this->pankkikortti_model->update_pankkikortti($id, $update_data);
+        $result=$this->tapahtumat_model->update_tapahtumat($id, $update_data);
 
         if($result)
         {
             $message = [
-                'idkortti' => $id,
-                'numero' => $this->put('numero'),
-                'pin'=>$this->put('pin'),
+                'idtapahtumat' => $id,
+                'pvm' => $this->put('pvm'),
+                'paikka'=>$this->put('paikka'),
+				'summa'=>$this->put('summa'),
                 'message' => 'Updates a resource'
             ];
 
@@ -151,11 +155,11 @@ class Tapahtumat extends REST_Controller {
             // Set the response and exit
             $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
         }
-        $result=$this->pankkikortti_model->delete_pankkikortti($id);
+        $result=$this->tapahtumat_model->delete_tapahtumat($id);
         if ($result)
         {
           $message = [
-              'idkortti' => $id,
+              'idtapahtumat' => $id,
               'message' => 'Deleted the resource'
           ];
           $this->set_response($message, REST_Controller::HTTP_OK);
