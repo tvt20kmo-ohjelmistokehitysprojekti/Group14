@@ -2,7 +2,7 @@
 /**
  *
  */
-class tili_model extends CI_model
+class Tili_model extends CI_model
 {
   function get_tili($id){
     $this->db->select('*');
