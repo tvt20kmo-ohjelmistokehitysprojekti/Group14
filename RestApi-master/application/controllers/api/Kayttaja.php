@@ -17,7 +17,7 @@ require APPPATH . 'libraries/REST_Controller.php';
  * @license         MIT
  * @link            https://github.com/chriskacerguis/codeigniter-restserver
  */
-class Book extends REST_Controller {
+class Kayttaja extends REST_Controller {
 
     function __construct()
     {
@@ -30,7 +30,7 @@ class Book extends REST_Controller {
         $this->load->model('kayttaja_model');
     }
 
-    public function kayttaja_get()
+    public function index_get()
     {
         
 
@@ -82,7 +82,7 @@ class Book extends REST_Controller {
 
     }
 
-    public function kayttaja_post()
+    public function index_post()
     {
         // Add a new book
         $add_data=array(
@@ -112,7 +112,7 @@ class Book extends REST_Controller {
         }
 
     }
-    public function kayttaja_put()
+    public function index_put()
     {
         // Update the book
         $id=$this->get('id');
@@ -145,7 +145,7 @@ class Book extends REST_Controller {
         }
     }
 
-    public function kayttaja_delete()
+    public function index_delete()
     {
         $id = $this->get('id');
 
