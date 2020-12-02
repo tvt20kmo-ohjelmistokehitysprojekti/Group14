@@ -2,10 +2,10 @@
 
 class Login_model extends CI_model
 {
-  function check_login($kortti){
+  function check_login($numero){
     $this->db->select('pin');
-    $this->db->from('kortti');
-    $this->db->where('kortti', $kortti);
+    $this->db->from('numero');
+    $this->db->where('numero', $numero);
     return $this->db->get()->row('pin');
   }
 }
