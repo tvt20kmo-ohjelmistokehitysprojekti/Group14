@@ -24,11 +24,11 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>14</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="text">
-    <string>nosto</string>
+    <string>Nosto</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btnSaldo">
@@ -42,7 +42,7 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>14</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="text">
@@ -60,14 +60,14 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>14</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="text">
     <string>Tapahtumat</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="btnKirjauduulos">
    <property name="geometry">
     <rect>
      <x>494</x>
@@ -88,8 +88,8 @@
   <widget class="QLabel" name="labelTervetuloa">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>50</y>
+     <x>250</x>
+     <y>40</y>
      <width>171</width>
      <height>71</height>
     </rect>
@@ -97,7 +97,7 @@
    <property name="font">
     <font>
      <family>Sylfaen</family>
-     <pointsize>16</pointsize>
+     <pointsize>22</pointsize>
     </font>
    </property>
    <property name="text">

@@ -26,6 +26,8 @@ private slots:
 
     void on_btnmuusumma_clicked();
 
+    void on_btnPalaa_clicked();
+
 private:
     Ui::nosto *ui;
 };
