@@ -22,7 +22,7 @@ class Pankkikortti_model extends CI_model
     }
   }
   function update_pankkikortti($id, $update_data){
-    $this->db->where('ipankkikortti',$id);
+    $this->db->where('idpankkikortti',$id);
     $this->db->update('pankikortti',$update_data);
     if($this->db->affected_rows()>0){
       return TRUE;
