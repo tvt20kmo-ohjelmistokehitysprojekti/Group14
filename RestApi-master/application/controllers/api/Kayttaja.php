@@ -27,31 +27,31 @@ class Kayttaja extends REST_Controller {
         // Construct the parent class
         parent::__construct();
 
-        $this->load->model('kayttaja_model');
+        $this->load->model('Kayttaja_model');
     }
 
     public function index_get()
     {
         
 
-        $id = $this->get('id');
+        $id = $this->input->get('id');
 
         // If the id parameter doesn't exist return all books
         if ($id === NULL)
         {
-            $book=$this->kayttaja_model->get_kayttaja(NULL);
+            $kayttaja=$this->Kayttaja_model->get_kayttaja(NULL);
             // Check if the book data store contains book (in case the database result returns NULL)
-            if ($book)
+            if ($kayttaja)
             {
                 // Set the response and exit
-                $this->response($book, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+                $this->response($kayttaja, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {
                 // Set the response and exit
                 $this->response([
                     'status' => FALSE,
-                    'message' => 'No book were found'
+                    'message' => 'No user were found'
                 ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
             }
         }
@@ -66,16 +66,16 @@ class Kayttaja extends REST_Controller {
             }
 
             // Get the book from the database, using the id as key for retrieval.
-            $book=$this->Book_model->get_book($id);
-            if (!empty($book))
+            $kayttaja=$this->Kayttaja_model->get_kayttaja($id);
+            if (!empty($kayttaja))
             {
-                $this->set_response($book, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+                $this->set_response($kayttaja, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {
                 $this->set_response([
                     'status' => FALSE,
-                    'message' => 'book could not be found'
+                    'message' => 'user could not be found'
                 ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
             }
         }
@@ -86,18 +86,18 @@ class Kayttaja extends REST_Controller {
     {
         // Add a new book
         $add_data=array(
-          'name'=>$this->post('name'),
-          'author'=>$this->post('author'),
-          'isbn'=>$this->post('isbn')
+          'etunimi'=>$this->post('etunimi'),
+          'sukunimi'=>$this->post('sukunimi'),
+          'puhnro'=>$this->post('puhnro')
         );
-        $insert_id=$this->Book_model->add_book($add_data);
+        $insert_id=$this->Kayttaja_model->add_kayttaja($add_data);
         if($insert_id)
         {
             $message = [
-                'id_book' => $insert_id,
-                'name' => $this->post('name'),
-                'author' => $this->post('author'),
-                'isbn'=>$this->post('isbn'),
+                'idkayttaja' => $insert_id,
+                'etunimi' => $this->post('etunimi'),
+                'sukunimi' => $this->post('sukunimi'),
+                'puhnro'=>$this->post('puhnro'),
                 'message' => 'Added a resource'
             ];
             $this->set_response($message, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
@@ -115,21 +115,21 @@ class Kayttaja extends REST_Controller {
     public function index_put()
     {
         // Update the book
-        $id=$this->get('id');
+        $id=$this->input->get('id');
         $update_data=array(
-          'name'=>$this->put('name'),
-          'author'=>$this->put('author'),
-          'isbn'=>$this->put('isbn')
+          'etunimi'=>$this->put('etunimi'),
+          'sukunimi'=>$this->put('sukunimi'),
+          'puhnro'=>$this->put('puhnro')
         );
-        $result=$this->Book_model->update_book($id, $update_data);
+        $result=$this->Kayttaja_model->update_kayttaja($id, $update_data);
 
         if($result)
         {
             $message = [
-                'id_book' => $id,
-                'name' => $this->put('name'),
-                'author'=>$this->put('author'),
-                'isbn'=>$this->put('isbn'),
+                'idkayttaja' => $id,
+                'etunimi' => $this->put('etunimi'),
+                'sukunimi'=>$this->put('sukunimi'),
+                'puhnro'=>$this->put('puhnro'),
                 'message' => 'Updates a resource'
             ];
 
@@ -147,7 +147,7 @@ class Kayttaja extends REST_Controller {
 
     public function index_delete()
     {
-        $id = $this->get('id');
+        $id = $this->input->get('id');
 
         // Validate the id.
         if ($id <= 0)
@@ -155,11 +155,11 @@ class Kayttaja extends REST_Controller {
             // Set the response and exit
             $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
         }
-        $result=$this->Book_model->delete_book($id);
+        $result=$this->Kayttaja_model->delete_kayttaja($id);
         if ($result)
         {
           $message = [
-              'id_book' => $id,
+              'idkayttaja' => $id,
               'message' => 'Deleted the resource'
           ];
           $this->set_response($message, REST_Controller::HTTP_OK);
