@@ -9,6 +9,7 @@
 #include <QJsonDocument>
 #include <qjsondocument.h>
 #include <QByteArray>
+#include "menu.h"
 
 
 
@@ -32,7 +33,9 @@ void MainWindow::on_btnLogin_clicked()
         numero=ui->lineEditnumero->text();
         pin=ui->lineEditpin->text();
 
-        QNetworkRequest request(QUrl("http://www.students.oamk.fi/~t9visa03/Group14/index.php/RestApi-master/api/login/?numero="+numero+"&pin="+pin));
+
+
+        QNetworkRequest request(QUrl("http://www.students.oamk.fi/~t9visa03/Group14/RestApi-master/index.php/api/login/check_login/?numero="+numero+"&pin="+pin));
               request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
               //Authenticate
               QString username="admin";
@@ -54,11 +57,14 @@ void MainWindow::on_btnLogin_clicked()
 
               reply->deleteLater();
 
-              if (response_data.compare("true")==0){
+              if (response_data == "true"){
                   ui->labellogintest->setText("Right");
               }
               else {
-                  ui->labellogintest->setText("Wrong");
+                  //ui->labellogintest->setText("Väärä PIN");
+                  menu *me = new menu();
+                  me->show();
+                  this->close();
               }
 }
 

@@ -22,6 +22,8 @@ private slots:
 
     void on_btnTapahtumat_clicked();
 
+    void on_btnKirjauduulos_clicked();
+
 private:
     Ui::menu *ui;
 };

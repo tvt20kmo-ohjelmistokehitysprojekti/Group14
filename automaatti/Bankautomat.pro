@@ -56,3 +56,4 @@ FORMS += \
         tulostus.ui
 
 QT += network
+

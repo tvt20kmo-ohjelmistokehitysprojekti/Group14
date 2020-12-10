@@ -18,15 +18,26 @@ menu::~menu()
 
 void menu::on_btnNosto_clicked()
 {
-
+    nosto *no = new nosto();
+    no->show();
+    this->close();
 }
 
 void menu::on_btnSaldo_clicked()
 {
-
+    saldo *sa = new saldo();
+    sa->show();
+    this->close();
 }
 
 void menu::on_btnTapahtumat_clicked()
 {
+    tapahtumat *tap = new tapahtumat();
+    tap->show();
+    this->close();
+}
 
+void menu::on_btnKirjauduulos_clicked()
+{
+    this->close();
 }

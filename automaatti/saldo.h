@@ -15,6 +15,9 @@ public:
     explicit saldo(QWidget *parent = nullptr);
     ~saldo();
 
+private slots:
+    void on_btnPalaa1_clicked();
+
 private:
     Ui::saldo *ui;
 };

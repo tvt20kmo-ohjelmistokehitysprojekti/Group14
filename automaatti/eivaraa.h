@@ -15,6 +15,9 @@ public:
     explicit eivaraa(QWidget *parent = nullptr);
     ~eivaraa();
 
+private slots:
+    void on_btnPalaa3_clicked();
+
 private:
     Ui::eivaraa *ui;
 };
