@@ -27,19 +27,19 @@ class Pankkikortti extends REST_Controller {
         // Construct the parent class
         parent::__construct();
 
-        $this->load->model('pankkikortti_model');
+        $this->load->model('Pankkikortti_model');
     }
 
     public function index_get()
     {
         // user from a data store e.g. database
 
-        $id = $this->get('id');
+        $id = $this->input->get('id');
 
         // If the id parameter doesn't exist return all users
         if ($id === NULL)
         {
-            $pankkikortti=$this->pankkikortti_model->get_pankkikortti(NULL);
+            $pankkikortti=$this->Pankkikortti_model->get_pankkikortti(NULL);
             // Check if the user data store contains user (in case the database result returns NULL)
             if ($pankkikortti)
             {
@@ -66,7 +66,7 @@ class Pankkikortti extends REST_Controller {
             }
 
             // Get the user from the database, using the id as key for retrieval.
-            $user=$this->pankkikortti_model->get_pankkikortti($id);
+            $user=$this->Pankkikortti_model->get_pankkikortti($id);
             if (!empty($pankkikortti))
             {
                 $this->set_response($pankkikortti, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
@@ -89,7 +89,7 @@ class Pankkikortti extends REST_Controller {
           'numero'=>$this->post('numero'),
           'pin'=>$this->post('pin'),
         );
-        $insert_id=$this->pankkikortti_model->add_pankkikortti($add_data);
+        $insert_id=$this->Pankkikortti_model->add_pankkikortti($add_data);
         if($insert_id)
         {
             $message = [
@@ -113,12 +113,12 @@ class Pankkikortti extends REST_Controller {
     public function index_put()
     {
         // Update the book
-        $id=$this->get('id');
+        $id=$this->input->get('id');
         $update_data=array(
           'numero'=>$this->put('numero'),
           'pin'=>$this->put('pin'),
         );
-        $result=$this->pankkikortti_model->update_pankkikortti($id, $update_data);
+        $result=$this->Pankkikortti_model->update_pankkikortti($id, $update_data);
 
         if($result)
         {
@@ -143,7 +143,7 @@ class Pankkikortti extends REST_Controller {
 
     public function index_delete()
     {
-        $id = $this->get('id');
+        $id = $this->input->get('id');
 
         // Validate the id.
         if ($id <= 0)
@@ -151,7 +151,7 @@ class Pankkikortti extends REST_Controller {
             // Set the response and exit
             $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
         }
-        $result=$this->pankkikortti_model->delete_pankkikortti($id);
+        $result=$this->Pankkikortti_model->delete_pankkikortti($id);
         if ($result)
         {
           $message = [
