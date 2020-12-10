@@ -27,19 +27,19 @@ class Tapahtumat extends REST_Controller {
         // Construct the parent class
         parent::__construct();
 
-        $this->load->model('tapahtumat_model');
+        $this->load->model('Tapahtumat_model');
     }
 
     public function index_get()
     {
         // user from a data store e.g. database
 
-        $id = $this->get('id');
+        $id = $this->input->get('id');
 
         // If the id parameter doesn't exist return all users
         if ($id === NULL)
         {
-            $tapahtumat=$this->tapahtumat_model->get_tapahtumat(NULL);
+            $tapahtumat=$this->Tapahtumat_model->get_tapahtumat(NULL);
             // Check if the user data store contains user (in case the database result returns NULL)
             if ($tapahtumat)
             {
@@ -66,7 +66,7 @@ class Tapahtumat extends REST_Controller {
             }
 
             // Get the user from the database, using the id as key for retrieval.
-            $user=$this->tapahtumat_model->get_tapahtumat($id);
+            $user=$this->Tapahtumat_model->get_tapahtumat($id);
             if (!empty($tapahtumat))
             {
                 $this->set_response($tapahtumat, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
@@ -90,14 +90,14 @@ class Tapahtumat extends REST_Controller {
 		'paikka'=>$this->post('paikka'),
           'summa'=>$this->post('summa'),
         );
-        $insert_id=$this->tapahtumat_model->add_tapahtumat($add_data);
+        $insert_id=$this->Tapahtumat_model->add_tapahtumat($add_data);
         if($insert_id)
         {
             $message = [
                 'idtapahtumat' => $insert_id,
                 'pvm' => $this->post('pvm'),
                 'paikka' => $this->post('paikka'),
-				'summa' => $this->post('summa'),
+		'summa' => $this->post('summa'),
                 'message' => 'Added a resource'
             ];
             $this->set_response($message, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
@@ -115,13 +115,13 @@ class Tapahtumat extends REST_Controller {
     public function index_put()
     {
         // Update the book
-        $id=$this->get('id');
+        $id=$this->input->get('id');
         $update_data=array(
-				'pvm' => $this->get('pvm'),
-                'paikka' => $this->get('paikka'),
-				'summa' => $this->get('summa')
+	'pvm' => $this->get('pvm'),
+        'paikka' => $this->get('paikka'),
+	'summa' => $this->get('summa')
         );
-        $result=$this->tapahtumat_model->update_tapahtumat($id, $update_data);
+        $result=$this->Tapahtumat_model->update_tapahtumat($id, $update_data);
 
         if($result)
         {
@@ -129,7 +129,7 @@ class Tapahtumat extends REST_Controller {
                 'idtapahtumat' => $id,
                 'pvm' => $this->put('pvm'),
                 'paikka'=>$this->put('paikka'),
-				'summa'=>$this->put('summa'),
+		'summa'=>$this->put('summa'),
                 'message' => 'Updates a resource'
             ];
 
@@ -147,7 +147,7 @@ class Tapahtumat extends REST_Controller {
 
     public function index_delete()
     {
-        $id = $this->get('id');
+        $id = $this->input->get('id');
 
         // Validate the id.
         if ($id <= 0)
@@ -155,7 +155,7 @@ class Tapahtumat extends REST_Controller {
             // Set the response and exit
             $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
         }
-        $result=$this->tapahtumat_model->delete_tapahtumat($id);
+        $result=$this->Tapahtumat_model->delete_tapahtumat($id);
         if ($result)
         {
           $message = [
