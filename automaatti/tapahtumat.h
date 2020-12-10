@@ -15,6 +15,9 @@ public:
     explicit tapahtumat(QWidget *parent = nullptr);
     ~tapahtumat();
 
+private slots:
+    void on_btnPalaa2_clicked();
+
 private:
     Ui::tapahtumat *ui;
 };
