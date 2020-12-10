@@ -28,19 +28,19 @@ class Tili extends REST_Controller {
         // Construct the parent class
         parent::__construct();
 
-        $this->load->model('tili_model');
+        $this->load->model('Tili_model');
     }
 
     public function index_get()
     {
         // user from a data store e.g. database
 
-        $id = $this->get('id');
+        $id = $this->input->get('id');
 
         // If the id parameter doesn't exist return all users
         if ($id === NULL)
         {
-            $tili=$this->tili_model->get_tili(NULL);
+            $tili=$this->Tili_model->get_tili(NULL);
             // Check if the user data store contains user (in case the database result returns NULL)
             if ($tili)
             {
@@ -67,7 +67,7 @@ class Tili extends REST_Controller {
             }
 
             // Get the user from the database, using the id as key for retrieval.
-            $user=$this->tili_model->get_tili($id);
+            $user=$this->Tili_model->get_tili($id);
             if (!empty($tili))
             {
                 $this->set_response($tili, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
@@ -88,7 +88,7 @@ class Tili extends REST_Controller {
         $add_data=array(
           'saldo'=>$this->post('saldo'),
         );
-        $insert_id=$this->tili_model->add_tili($add_data);
+        $insert_id=$this->Tili_model->add_tili($add_data);
         if($insert_id)
         {
             $message = [
@@ -111,11 +111,11 @@ class Tili extends REST_Controller {
     public function index_put()
     {
         // Update the book
-        $id=$this->get('id');
+        $id=$this->input->get('id');
         $update_data=array(
           'tili'=>$this->put('tili'),
         );
-        $result=$this->tili_model->update_tili($id, $update_data);
+        $result=$this->Tili_model->update_tili($id, $update_data);
 
         if($result)
         {
@@ -139,7 +139,7 @@ class Tili extends REST_Controller {
 
     public function index_delete()
     {
-        $id = $this->get('id');
+        $id = $this->input->get('id');
 
         // Validate the id.
         if ($id <= 0)
@@ -147,7 +147,7 @@ class Tili extends REST_Controller {
             // Set the response and exit
             $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
         }
-        $result=$this->tili_model->delete_tili($id);
+        $result=$this->Tili_model->delete_tili($id);
         if ($result)
         {
           $message = [
